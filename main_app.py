@@ -1,17 +1,16 @@
 from os.path import join, dirname, realpath
-from os import scandir, remove
+from os import scandir, remove, chdir, listdir
 from flask import Flask
 from flask import render_template, request, redirect
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 from work_with_word import Word
 
+app = Flask(__name__)
 
 UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'uploads')
-# UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = ['docx']
-# files = glob(join(dirname(realpath(__file__)), 'uploads'), doc)
-app = Flask(__name__)
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
@@ -21,14 +20,9 @@ def allowed_file(filename):
 
 @app.route('/')
 def main():
-    return render_template('selectFile.html')
-
-@app.route('/', methods=["GET", "POST"])
-def delet():
     for file in scandir(UPLOAD_FOLDER):
         remove(file.path)
     return render_template('selectFile.html')
-
 
 @app.route('/selectFile', methods=["GET", "POST"])
 def upload_file():

@@ -23,7 +23,7 @@ class Word(DocxReadWrite):
                    # add to list of words
                    list_word.append(word_norm)
                 # create string
-                word_str = " ".join(list_word).capitalize()
+                word_str = ", ".join(list_word).capitalize()
                 str_norm.append(word_str)
             text_new = ". ".join(str_norm)
             rez_text.append(text_new)

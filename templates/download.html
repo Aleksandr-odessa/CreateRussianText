@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload</title>
+</head>
+<body>
+<p>  Скачивание </p>
+<form action="{{ url_for('download_file') }}" method="post" enctype="multipart/form-data">
+    <input type="hidden" value ="Text">
+    <input type="submit">
+</form>
+<a href="{{ url_for('main') }}"> Вернуться на главную и повторить </a>
+</body>
+</html>

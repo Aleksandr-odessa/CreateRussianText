@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Success</title>
+</head>
+<body>
+<p> File uploaded succesfuly</p>
+<p> File Name: {{name}} </p>
+<form action="{{ url_for('begin_def') }}" method="post">
+    <input type="hidden" name="normal_form" value="normal_form">
+    <input type="hidden" name="del_verb" value='0'>
+
+    <input type="submit" value="Normal form">
+</form>
+<form action="{{ url_for('begin_def') }}" method="post">
+    <input type="hidden" name="del_verb" value="del verb">
+    <input type="hidden" name="normal_form" value='0'>
+    <input type="submit" value="del_verb">
+</form>
+<body>
+</html>

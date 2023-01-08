@@ -28,5 +28,3 @@ class DocxReadWrite:
             fmt.space_before = 0
             fmt.space_after= 0
         document.save(self.name_file_write)
-
-

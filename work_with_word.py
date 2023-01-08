@@ -2,50 +2,33 @@ import pymorphy3
 from word_in_out import DocxReadWrite
 from math import ceil
 from random import sample
+from if_title import if_title, if_name, par_to_list
+
+morph = pymorphy3.MorphAnalyzer()
 
 
 class Word(DocxReadWrite):
 
     @staticmethod
-    def norm_word(text: list) -> list:
-        morph = pymorphy3.MorphAnalyzer()
-        rez_text: list = []
-        for p in text:
-            str_norm: list = []
-            list_sentence: list = p.split(".")
-            for sent in list_sentence:
-                list_s: list = sent.lstrip(" ").split(" ")
-                list_word: list = []
-                for _ in list_s:
-                   word = morph.parse(_)[0]
-                   # get up normal form of word
-                   word_norm = word.normal_form
-                   # add to list of words
-                   list_word.append(word_norm)
-                # create string
-                word_str = ", ".join(list_word).capitalize()
-                str_norm.append(word_str)
-            text_new = ". ".join(str_norm)
-            rez_text.append(text_new)
-        return rez_text
+    def norm_word(text: str) -> list:
+        paragraphs = par_to_list(text)
+        word_norm = []
+        for par in paragraphs:
+            list_word = if_name(par)
+            list_par = if_title(list_word)
+            word_norm.append(", ".join(list_par))
+        return word_norm
 
     @staticmethod
-    def del_word(text: list, percent: int) -> list:
-        rez_text = []
-        for p in text:
-            list_sentence: list = p.split(".")
-            text_str = []
-            for word in list_sentence:
-                list_word: list = word.lstrip(" ").split(" ")
-                length: int = len(list_word)
-                if length > 1:
-                    del_count: int = ceil(length*percent/100)
-                    del_list = sample(range(0, length), del_count)
-                    for ind in del_list:
-                        list_word.pop(ind)
-                        list_word.insert(ind, "____")
-                    word_str = " ".join(list_word)
-                    text_str.append(word_str)
-            text_new = ". ".join(text_str)
-            rez_text.append(text_new)
-        return rez_text
+    def del_word(text: str, percent: int) -> list:
+        paragraphs = par_to_list(text)
+        text_str = []
+        for sent in paragraphs:
+            length: int = len(sent)
+            if len(sent) > 1:
+                del_list = sample(range(0, length), ceil(length * percent / 100))
+                for ind in del_list:
+                    sent[ind] = "_______"
+            word_str = " ".join(sent)
+            text_str.append(word_str)
+        return text_str

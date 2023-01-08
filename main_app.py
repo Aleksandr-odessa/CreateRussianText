@@ -1,5 +1,5 @@
 from os.path import join, dirname, realpath
-from os import scandir, remove, chdir, listdir
+from os import scandir, remove
 from flask import Flask
 from flask import render_template, request, redirect
 from werkzeug.utils import secure_filename

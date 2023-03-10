@@ -63,4 +63,4 @@ def download_file():
     return send_from_directory(app.config["UPLOAD_FOLDER"], "Text.doc")
 
 
-app.run(host='0.0.0.0', port=81)
+app.run()
